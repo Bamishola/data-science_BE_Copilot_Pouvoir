@@ -55,31 +55,28 @@ Le contexte, les enjeux, la problématique et la démarche sont expliqué dans l
    ```
 
 3. Ce que fait `main.py` (ordre d'exécution)
-   - Appelle `clean()` depuis `src.data_cleaning`
-     - Nettoie les données (ex. `train.csv`) et génère `train_clean.csv`.
-     - Message affiché : "---------Nettoyage des données en cours..." puis confirmation de génération.
-   - Pause de 5 secondes (`time.sleep(5)`) pour laisser le fichier se stabiliser.
-   - Appelle `feacture()` depuis `src.data_features` (nom de fonction tel qu'il est dans le code)
-     - Génère des caractéristiques et crée `train_features_ready.csv`.
-     - Message affiché : "---------Génération des features en cours..." puis confirmation.
-   - Pause de 5 secondes.
-   - Appelle `train_model()` depuis `src.train_model`
-     - Entraîne le modèle (les artefacts produits dépendent de l'implémentation — vérifier `src/train_model.py` pour connaître le nom/chemin du modèle sauvegardé).
-     - Message affiché : "---------Entraînement du modèle en cours..." puis confirmation.
-   - Appelle `prediction_competition()` depuis `src.z_prediction_competiton`
-     - Produit la prédiction finale pour la compétition (génère typiquement `submission.csv`).
-     - Message affiché : "---------Début de la prédiction pour la compétition Kaggle..." puis confirmation de génération de `submission.csv`.
+   - Appelle `clean()` depuis `src.data_cleaning` : Nettoie `train.csv` et génère `train_clean.csv` qui est un nouveau dataset contenant trois colonnes (utilisateurs, navigateurs, et actions)
+   - Pause de 5 secondes pour s'assurer que `train_clean.csv` est bien généré.
+   - Appelle `feacture()` depuis `src.data_features` : Génère de nouvelles caractéristiques, fait l' encodage (toutes les colonnes deviennent numériques) et crée `train_features_ready.csv`.
+   - Pause de 5 secondes pour s'assurer que `train_features_ready.csv` est bien généré.
+   - Appelle `train_model()` depuis `src.train_model` : Entraîne le modèle  et la sauvergarder pour pouvoir faire de la prédiction en temps réel plus tard.
+   - Appelle `prediction_competition()` depuis `src.z_prediction_competiton`: Produit la prédiction finale pour la compétition (génère typiquement `submission.csv`). C' est ce fichier qui sera soumis sur Kaggle pour la compétition.
+   
 
-4. Fichiers attendus après exécution
-   - train_clean.csv
-   - train_features_ready.csv
-   - artefacts d'entraînement (modèle, logs) — vérifier `src/train_model.py`
-   - submission.csv (résultat des prédictions)
+4. Fichiers principaux attendus après exécution dans le répertoire `data`
+   - `train_clean.csv`
+   - `train_features_ready.csv`
+   - Modèle sauvergardé `rf_model.jolib`
+   - `submission.csv` :  résultat des prédictions (pour Kaggle) à partir du fichier `test.csv`
 
 5. Conseils de dépannage
-   - Si une étape échoue, consulter la sortie console pour le message d'erreur et ouvrir le fichier source correspondant dans `src/` pour plus de détails.
+   - Si une étape échoue, consulter la sortie console pour le message d'erreur.
    - Vérifier que `train.csv`/`test.csv` existent et ont les colonnes attendues.
    - Si un module attend un chemin différent, adapter les chemins relatifs dans les scripts ou exécuter depuis la racine du projet.
-   - Pour relancer proprement, supprimer les fichiers générés (ex. `train_clean.csv`, `train_features_ready.csv`, `submission.csv`) avant une nouvelle exécution.
+   - Pour relancer proprement, supprimer les fichiers générés avant une nouvelle exécution.
 
-Remarque : les noms de fonctions et de modules utilisés ici reflètent exactement le code fourni (p. ex. `feacture`, `z_prediction_competiton`). Corriger l'orthographe des noms si vous modifiez les fichiers sources.
+
+## Membre de l'équipe,
+- LOKE Bamishola Aristide
+- MAMOUDOU Wone
+- EZZAKOUDY Taybi
