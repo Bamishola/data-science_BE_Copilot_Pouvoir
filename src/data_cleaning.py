@@ -45,7 +45,7 @@ def read_csv_any(path: Path):
     for sep in [",", ";", "\t"]:
         for enc in [None, "utf-8-sig"]:
             try:
-                df = pd.read_csv(path, sep=sep, dtype=str, encoding=enc, low_memory=False, header=0)
+                df = pd.read_csv(path, sep=sep, dtype=str, encoding=enc, low_memory=False, header=None)
                 return df, sep
             except Exception as e:
                 last_err = e

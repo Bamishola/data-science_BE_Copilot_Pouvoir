@@ -173,27 +173,25 @@ def predict_competition():
     print("🤖 Prédiction en cours...")
     y_pred = model.predict(X_test)
 
-    # --- Décodage des labels si label_mapping existe ---
+    # Décodage des labels si label_mapping existe
     label_map_path = LABEL_ENCODER_OUTPUT
     if os.path.exists(label_map_path):
         df_map = pd.read_csv(label_map_path, dtype=str)
-        # inverse du mapping : {0: 'util1', 1: 'util2', ...}
         inv_label_map = {int(row["Y"]): row["util"] for _, row in df_map.iterrows()}
         y_pred_labels = [inv_label_map.get(int(y), "unknown") for y in y_pred]
     else:
-        y_pred_labels = y_pred  # reste en int si pas de mapping
+        y_pred_labels = y_pred
 
-    # Création du dataframe de soumission
-    if id_col:
-        submission = pd.DataFrame({id_col: df_test[id_col], "Y": y_pred_labels})
-    else:
-        submission = pd.DataFrame({"id": np.arange(len(y_pred_labels)), "Y": y_pred_labels})
+    # Création du dataframe de soumission avec RowId commençant à 1
+    submission = pd.DataFrame({
+        "RowId": np.arange(1, len(y_pred_labels) + 1),
+        "prediction": y_pred_labels
+    })
 
     # Sauvegarde
     submission.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
     print(f"✅ Fichier de soumission généré : {OUTPUT_FILE}")
     print(submission.head())
-
 
 
 
