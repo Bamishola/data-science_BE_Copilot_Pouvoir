@@ -9,16 +9,10 @@ Le contexte, les enjeux, la problématique et la démarche sont expliqué dans l
 - accès terminal (Linux/macOS) ou PowerShell (Windows).
 - [optionnel] Git si clonage depuis un dépôt distant.
 
-## Structure du projet.
-![Structure du projet](structure_projet.png)
 
-
-
-## Installation & préparation de l'environnement virtuel (Linux/macOS)
-1. Se placer dans la racine du projet : 
-   ```
-   cd repertoire/travail
-   ```
+## Installation & préparation de l'environnement virtuel
+### Sous Linux/macOS
+1. Se placer dans la racine du projet avec ```cd``` :
 
 2. Créer l'environnement virtuel :
    ```
@@ -40,42 +34,52 @@ Le contexte, les enjeux, la problématique et la démarche sont expliqué dans l
    pip install -r requirements.txt
    ```
 
-## Activation & désactivation (Windows PowerShell)
-- Création :
-  python -m venv .venv
-- Activation :
-  .\.venv\Scripts\Activate.ps1
-- Désactivation :
-  deactivate
+## Sous Windows PowerShell
+- Création : ```python -m venv .venv```
+- Activation : ```.\.venv\Scripts\Activate.ps1```
+- Puis installer les dépendances spécifiées dans le fichier ```requirements.txt``` 
 
 ## Structure recommandée du projet
-- data/            — jeux de données (ne pas versionner les gros fichiers)
-- src/             — code source (modules, utilitaires)
-- notebooks/       — notebooks d'exploration
-- models/          — modèles entraînés / checkpoints
-- requirements.txt — dépendances
-- main.py          — point d'entrée du pipeline
+![Répertoire du projet](structure_projet.png)
 
-Adapter ces chemins si le projet diffère.
+## Exécution du fichier main (explication détaillée)
 
-## Exécution du fichier main
-1. S'assurer que l'environnement virtuel est activé.
-2. Lancer le pipeline depuis la racine du projet :
+1. Pré-requis
+   - L'environnement virtuel doit être activé.
+   - Les fichiers d'entrée attendus `train.csv` et `test.csv` doivent se situer dans le répertoire `data`
+   - Installer les dépendances : `pip install -r requirements.txt`.
+
+2. Lancer le pipeline
+   ```
    python main.py
-3. Options courantes (exemples) :
-   python main.py --config config.yml
-   python main.py --mode train
-Vérifier que main.py expose les options souhaitées (help) :
-   python main.py --help
+   ```
 
-## Bonnes pratiques
-- Versionner requirements.txt (pip freeze > requirements.txt) après installation.
-- Utiliser .gitignore pour exclure .venv, data/ volumineux et models/.
-- Documenter les paramètres de configuration (config.yml ou README section "Configuration").
+3. Ce que fait `main.py` (ordre d'exécution)
+   - Appelle `clean()` depuis `src.data_cleaning`
+     - Nettoie les données (ex. `train.csv`) et génère `train_clean.csv`.
+     - Message affiché : "---------Nettoyage des données en cours..." puis confirmation de génération.
+   - Pause de 5 secondes (`time.sleep(5)`) pour laisser le fichier se stabiliser.
+   - Appelle `feacture()` depuis `src.data_features` (nom de fonction tel qu'il est dans le code)
+     - Génère des caractéristiques et crée `train_features_ready.csv`.
+     - Message affiché : "---------Génération des features en cours..." puis confirmation.
+   - Pause de 5 secondes.
+   - Appelle `train_model()` depuis `src.train_model`
+     - Entraîne le modèle (les artefacts produits dépendent de l'implémentation — vérifier `src/train_model.py` pour connaître le nom/chemin du modèle sauvegardé).
+     - Message affiché : "---------Entraînement du modèle en cours..." puis confirmation.
+   - Appelle `prediction_competition()` depuis `src.z_prediction_competiton`
+     - Produit la prédiction finale pour la compétition (génère typiquement `submission.csv`).
+     - Message affiché : "---------Début de la prédiction pour la compétition Kaggle..." puis confirmation de génération de `submission.csv`.
 
-## Dépannage
-- Erreur de version Python : vérifier python --version.
-- Module introuvable : vérifier pip install -r requirements.txt et que l'environnement est activé.
-- Permission denied : vérifier droits d'exécution et chemin d'accès.
+4. Fichiers attendus après exécution
+   - train_clean.csv
+   - train_features_ready.csv
+   - artefacts d'entraînement (modèle, logs) — vérifier `src/train_model.py`
+   - submission.csv (résultat des prédictions)
 
-Modifier ce README pour inclure la description précise du jeu de données, les métriques de succès et les dépendances exactes du projet.
+5. Conseils de dépannage
+   - Si une étape échoue, consulter la sortie console pour le message d'erreur et ouvrir le fichier source correspondant dans `src/` pour plus de détails.
+   - Vérifier que `train.csv`/`test.csv` existent et ont les colonnes attendues.
+   - Si un module attend un chemin différent, adapter les chemins relatifs dans les scripts ou exécuter depuis la racine du projet.
+   - Pour relancer proprement, supprimer les fichiers générés (ex. `train_clean.csv`, `train_features_ready.csv`, `submission.csv`) avant une nouvelle exécution.
+
+Remarque : les noms de fonctions et de modules utilisés ici reflètent exactement le code fourni (p. ex. `feacture`, `z_prediction_competiton`). Corriger l'orthographe des noms si vous modifiez les fichiers sources.
