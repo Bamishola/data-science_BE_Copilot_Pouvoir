@@ -1,18 +1,18 @@
 # README — Data Science BE (Projet)
 
 ## Contexte & problématique
-Ce projet vise à résoudre une problématique d'analyse de données (prétraitement, exploration, modélisation et évaluation). L'objectif est de fournir un pipeline reproductible permettant de :
-- charger et nettoyer les jeux de données,
-- extraire des features pertinentes,
-- entraîner et évaluer un modèle,
-- produire des résultats/visualisations exploitables.
-
-Adaptez la description précise de la problématique (jeu de données, métrique, objectif métier) dans la section "Description du projet" du dépôt.
+C'est dans le cadre du BE du MOD *Data Science* que s'inscrit ce projet.
+Le contexte, les enjeux, la problématique et la démarche sont expliqué dans le rapport foruni.
 
 ## Prérequis
 - Python 3.8+ installé sur la machine.
 - accès terminal (Linux/macOS) ou PowerShell (Windows).
 - [optionnel] Git si clonage depuis un dépôt distant.
+
+## Structure du projet.
+![Structure du projet](structure_projet.png)
+
+
 
 ## Installation & préparation de l'environnement virtuel (Linux/macOS)
 1. Se placer dans la racine du projet :
