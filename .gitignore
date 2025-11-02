@@ -1,0 +1,105 @@
+# .gitignore pour projet Data Science / Python / Jupyter
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+pip-wheel-metadata/
+*.egg-info/
+*.egg
+build/
+dist/
+*.so
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Package managers / lock / metadata
+.Python
+pip-selfcheck.json
+
+# Jupyter / Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (raw / generated) - adaptez selon ce que vous voulez versionner
+data/
+data_raw/
+data_processed/
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.h5
+*.hdf5
+*.parquet
+
+
+# Modèles et artefacts ML
+models/
+artifacts_vscode/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.joblib
+*.sav
+*.pkl
+
+# Logs et sorties
+logs/
+*.log
+reports/
+*.html
+*.pdf
+
+# Testing / Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user
+.Ruserdata
+
+# Conda
+.env.yml
+envs/
+.conda/
+conda-meta/
+
+# Documentation builds
+docs/_build/
+
+# Temp / swap / backup files
+*.swp
+*~
+.#*
+~$*
+
+# Misc
+npm-debug.log
+yarn-error.log
+
+
+############## Fichiers specifique a ne pas exclure ###############
+!data/train.csv
+!data/test.csv
