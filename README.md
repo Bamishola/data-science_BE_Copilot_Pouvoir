@@ -15,25 +15,30 @@ Le contexte, les enjeux, la problématique et la démarche sont expliqué dans l
 
 
 ## Installation & préparation de l'environnement virtuel (Linux/macOS)
-1. Se placer dans la racine du projet  avec la commande : 
+1. Se placer dans la racine du projet : 
    ```
-   cd
+   cd repertoire/travail
    ```
 
 2. Créer l'environnement virtuel :
+   ```
    python3 -m venv .venv
+   ```
 
 3. Activer l'environnement :
+   ```
    source .venv/bin/activate
+   ```
 
 4. Mettre pip à jour :
+   ```
    pip install --upgrade pip
+   ```
 
-5. Installer les dépendances :
-   - Si un fichier requirements.txt existe :
-     pip install -r requirements.txt
-   - Sinon, installer manuellement les paquets nécessaires (ex. pandas, scikit-learn, matplotlib) :
-     pip install pandas scikit-learn matplotlib seaborn
+5. Installer les dépendances dans le fichier ```requirements.txt``` :
+   ```
+   pip install -r requirements.txt
+   ```
 
 ## Activation & désactivation (Windows PowerShell)
 - Création :
