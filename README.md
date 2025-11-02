@@ -15,8 +15,10 @@ Le contexte, les enjeux, la problématique et la démarche sont expliqué dans l
 
 
 ## Installation & préparation de l'environnement virtuel (Linux/macOS)
-1. Se placer dans la racine du projet :
-   cd /home/bamishola/ECL/S9/UE\ -\ MOD/02\ -\ MOD_07_2\ -\ Introduction\ à\ Data\ Science/BE\ 1\ -\ 2\ -\ 3/data-science_BE_Copilot_Pouvoir
+1. Se placer dans la racine du projet  avec la commande : 
+   ```
+   cd
+   ```
 
 2. Créer l'environnement virtuel :
    python3 -m venv .venv
